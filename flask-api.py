@@ -7,6 +7,11 @@ import requests
 app = Flask(__name__)
 api = Api(app)
 
+context = SSL.Context(SSL.TLSv1_2_METHOD)
+context.use_privatekey_file('/etc/letsencrypt/live/DOMAIN.COM/privkey.pem')
+context.use_certificate_chain_file('/etc/letsencrypt/live/DOMAIN.COM/fullchain.pem')
+context.use_certificate_file('/etc/letsencrypt/live/DOMAIN.COM/cert.pem')
+
 TODOS = {
     'todo1': {'task': 'build an API'},
     'todo2': {'task': '?????'},
@@ -84,7 +89,7 @@ class DemoUrl(Resource):
         response = Response(stream_with_context(request.iter_content()),
                                 content_type=request.headers['content-type'],
                                 status=request.status_code)
-        response.headers['Access-Control-Allow-Origin'] = '*'
+        # response.headers['Access-Control-Allow-Origin'] = '*'
         return response
 
 ##
@@ -94,6 +99,7 @@ api.add_resource(TodoList, '/todos')
 api.add_resource(Todo, '/todos/<todo_id>')
 api.add_resource(ProxyHttp, '/proxy/<path:url>')
 api.add_resource(DemoUrl, '/url/<path:url>')
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
