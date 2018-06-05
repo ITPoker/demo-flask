@@ -84,7 +84,7 @@ class DemoUrl(Resource):
         response = Response(stream_with_context(request.iter_content()),
                                 content_type=request.headers['content-type'],
                                 status=request.status_code)
-        # response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Origin'] = '*'
         return response
 
 ##
