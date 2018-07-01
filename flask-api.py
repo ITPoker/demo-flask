@@ -81,7 +81,7 @@ class DemoUrl(Resource):
     def get(self, url):
         # requests_function = method_requests_mapping[flask.request.method]
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36',
         }
         request = requests.get(url, headers=headers, stream=True)
         response = Response(stream_with_context(request.iter_content()),
